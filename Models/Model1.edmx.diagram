@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3ca15d05050f4467ad1d7a43abd8043a" Name="Diagram1" ZoomLevel="93">
+        <EntityTypeShape EntityType="Library_ManagementModel.Author" Width="1.5" PointX="0.75" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Library_ManagementModel.Book" Width="1.5" PointX="4.375" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Library_ManagementModel.Book_Transaction" Width="1.5" PointX="7" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Library_ManagementModel.Customer" Width="1.5" PointX="9.25" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Library_ManagementModel.Publisher" Width="1.5" PointX="1" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="Library_ManagementModel.FK__Book__BookAuthor__0EA330E9" ManuallyRouted="false" />
+        <AssociationConnector Association="Library_ManagementModel.FK__Book__BookPublis__0F975522" ManuallyRouted="false" />
+        <AssociationConnector Association="Library_ManagementModel.FK__Book_Tran__BookI__15502E78" ManuallyRouted="false" />
+        <AssociationConnector Association="Library_ManagementModel.FK__Book_Tran__Custo__145C0A3F" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

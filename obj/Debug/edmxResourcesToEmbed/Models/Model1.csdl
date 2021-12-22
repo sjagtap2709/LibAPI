@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Library_ManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Author">
+    <Key>
+      <PropertyRef Name="AuthorId" />
+    </Key>
+    <Property Name="AuthorId" Type="Int32" Nullable="false" />
+    <Property Name="AuthorName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NoofBooksWritten" Type="Int32" />
+    <Property Name="AuthorContact" Type="Int64" />
+    <Property Name="AuthorMailId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="AuthorCity" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Books" Relationship="Self.FK__Book__BookAuthor__0EA330E9" FromRole="Author" ToRole="Book" />
+  </EntityType>
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="BookId" />
+    </Key>
+    <Property Name="BookId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BookName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BookAuthorId" Type="Int32" />
+    <Property Name="BookPublisherId" Type="Int32" />
+    <Property Name="BookPrice" Type="Int32" />
+    <Property Name="BookCatagory" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="NoofCopies" Type="Int32" />
+    <NavigationProperty Name="Author" Relationship="Self.FK__Book__BookAuthor__0EA330E9" FromRole="Book" ToRole="Author" />
+    <NavigationProperty Name="Publisher" Relationship="Self.FK__Book__BookPublis__0F975522" FromRole="Book" ToRole="Publisher" />
+    <NavigationProperty Name="Book_Transaction" Relationship="Self.FK__Book_Tran__BookI__15502E78" FromRole="Book" ToRole="Book_Transaction" />
+  </EntityType>
+  <EntityType Name="Book_Transaction">
+    <Key>
+      <PropertyRef Name="TransactionID" />
+    </Key>
+    <Property Name="TransactionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerID" Type="Int32" />
+    <Property Name="BookId" Type="Int32" />
+    <Property Name="BookIssueDate" Type="DateTime" Precision="0" />
+    <Property Name="BookSubmitDate" Type="DateTime" Precision="0" />
+    <Property Name="TransactionStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Book" Relationship="Self.FK__Book_Tran__BookI__15502E78" FromRole="Book_Transaction" ToRole="Book" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK__Book_Tran__Custo__145C0A3F" FromRole="Book_Transaction" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+    </Key>
+    <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="CustomerDOB" Type="DateTime" Precision="3" />
+    <Property Name="CustomerContact" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CustomerAddress" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CustomerGender" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CustomerEmail" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="CustomerPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Book_Transaction" Relationship="Self.FK__Book_Tran__Custo__145C0A3F" FromRole="Customer" ToRole="Book_Transaction" />
+  </EntityType>
+  <EntityType Name="Publisher">
+    <Key>
+      <PropertyRef Name="PublisherId" />
+    </Key>
+    <Property Name="PublisherId" Type="Int32" Nullable="false" />
+    <Property Name="PublisherName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="NoofBooksPublished" Type="Int32" />
+    <Property Name="City" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="ContactInfo" Type="Int64" />
+    <NavigationProperty Name="Books" Relationship="Self.FK__Book__BookPublis__0F975522" FromRole="Publisher" ToRole="Book" />
+  </EntityType>
+  <Association Name="FK__Book__BookAuthor__0EA330E9">
+    <End Role="Author" Type="Self.Author" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Book" Type="Self.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="AuthorId" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="BookAuthorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Book__BookPublis__0F975522">
+    <End Role="Publisher" Type="Self.Publisher" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Book" Type="Self.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Publisher">
+        <PropertyRef Name="PublisherId" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="BookPublisherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Book_Tran__BookI__15502E78">
+    <End Role="Book" Type="Self.Book" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Book_Transaction" Type="Self.Book_Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Book">
+        <PropertyRef Name="BookId" />
+      </Principal>
+      <Dependent Role="Book_Transaction">
+        <PropertyRef Name="BookId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Book_Tran__Custo__145C0A3F">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Book_Transaction" Type="Self.Book_Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="CustomerId" />
+      </Principal>
+      <Dependent Role="Book_Transaction">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Library_ManagementEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Authors" EntityType="Self.Author" />
+    <EntitySet Name="Books" EntityType="Self.Book" />
+    <EntitySet Name="Book_Transaction" EntityType="Self.Book_Transaction" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="Publishers" EntityType="Self.Publisher" />
+    <AssociationSet Name="FK__Book__BookAuthor__0EA330E9" Association="Self.FK__Book__BookAuthor__0EA330E9">
+      <End Role="Author" EntitySet="Authors" />
+      <End Role="Book" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Book__BookPublis__0F975522" Association="Self.FK__Book__BookPublis__0F975522">
+      <End Role="Publisher" EntitySet="Publishers" />
+      <End Role="Book" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Book_Tran__BookI__15502E78" Association="Self.FK__Book_Tran__BookI__15502E78">
+      <End Role="Book" EntitySet="Books" />
+      <End Role="Book_Transaction" EntitySet="Book_Transaction" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Book_Tran__Custo__145C0A3F" Association="Self.FK__Book_Tran__Custo__145C0A3F">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Book_Transaction" EntitySet="Book_Transaction" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
